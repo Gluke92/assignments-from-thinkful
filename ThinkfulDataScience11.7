@@ -1,0 +1,32 @@
+--5/17 Assignment 11.7
+
+-- 1. The IDs and durations for all trips of duration greater than 500, ordered by duration.
+
+SELECT
+	trip_id,
+	duration
+FROM
+	trips
+WHERE
+	duration < 500
+ORDER BY duration DESC
+
+-- 2. Select all columns with id 84.
+
+SELECT *
+FROM 
+	stations
+WHERE
+	station_id = 84
+
+-- 3. The min temperatures of all the occurrences of rain in zip 94301.
+
+SELECT 
+	MinTemperatureF
+FROM
+	weather
+WHERE
+	zip = 94301 AND 
+	events = 'Rain'
+ORDER BY MinTemperatureF DESC
+
