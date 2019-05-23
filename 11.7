@@ -1,0 +1,73 @@
+---Exploring air_bnb data
+
+1. What's the most expensive listing? What other information can you get?
+
+SELECT
+	*
+FROM 
+	sfo_listings
+WHERE price = 10000
+
+--Notes: most expensive is running at 10,000. I used a general query and an ORDER BY price DESC to get the highest price.
+--I also explored joining the sfo_calendar and the sfo_listings groups by their id's, and discovered that the text data
+--in calendar for price is the same as the "real" data in sfo_listings. 
+
+SELECT
+	*
+FROM 
+	sfo_listings
+WHERE price > 500
+ORDER BY price desc
+
+---found that the prices in the top 6-7 are between 4k and 10k. They're all whole-houses. 
+
+
+2. What neighborhoods seem to be the most popular?
+
+West of Twin Peaks
+Western Addition
+Visiticon 
+
+
+---Queries for neighbourhoods 
+
+SELECT
+	neighbourhood,
+	neighbourhood_group,
+	number_of_reviews,
+	reviews_per_month,
+	availability_365,
+	last_review,
+	price
+FROM 
+	sfo_listings
+WHERE price > 1000 
+ORDER BY neighbourhood desc
+
+--
+SELECT
+	neighbourhood,
+	neighbourhood_group,
+	number_of_reviews,
+	reviews_per_month,
+	availability_365,
+	last_review,
+	price
+FROM 
+	sfo_listings
+WHERE price > 0 
+ORDER BY neighbourhood desc
+
+
+3. What time of year is the cheapest time to go to San Francisco? What about the busiest?
+
+SELECT 
+	DATE(last_review) review,
+	price
+FROM 
+	sfo_listings
+WHERE 
+	price < 500
+ORDER BY review asc
+
+--Not sure how to do this. This could be a good thing to investigate with Alan. 
