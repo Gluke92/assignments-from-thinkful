@@ -71,3 +71,20 @@ WHERE
 ORDER BY review asc
 
 --Not sure how to do this. This could be a good thing to investigate with Alan. 
+
+WITH available_dates
+AS (SELECT listing_id, calender_date 
+FROM sfo_calendar
+WHERE available = 't')
+
+SELECT
+	COUNT(l.id) AS number_of_available_listings,
+	EXTRACT(MONTH FROM last_review) AS review,
+	SUM(price) AS price,
+	(SUM(price)/ COUNT(l.id)) AS avg_price_per_listing
+FROM 
+	sfo_listings l JOIN available_dates a ON l.id = a.listing_id
+GROUP BY review
+ORDER BY avg_price_per_listing desc
+
+^Worked with Alan. Output indicates that December March and November are heavy months. July has a lot of listings. 
